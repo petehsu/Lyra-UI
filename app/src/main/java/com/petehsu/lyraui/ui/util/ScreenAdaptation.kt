@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -196,14 +197,15 @@ fun calculatePanelWidth(
 @Composable
 fun getSystemInsetsPadding(): SystemInsetsPadding {
     val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
     val windowInsets = WindowInsets.systemBars
     
     return with(density) {
         SystemInsetsPadding(
             top = windowInsets.getTop(density).toDp(),
             bottom = windowInsets.getBottom(density).toDp(),
-            left = windowInsets.getLeft(density, null).toDp(),
-            right = windowInsets.getRight(density, null).toDp()
+            left = windowInsets.getLeft(density, layoutDirection).toDp(),
+            right = windowInsets.getRight(density, layoutDirection).toDp()
         )
     }
 }
