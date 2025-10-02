@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Lyra UI</string>
+    
+    <!-- Lyra UI Center Content -->
+    <string name="lyra_center_title">Lyra UI</string>
+    <string name="lyra_center_description">Innovatives gestenbasiertes UI-Framework</string>
+    
+    <!-- Lyra UI Left Panel -->
+    <string name="lyra_left_panel_title">Linkes Panel</string>
+    <string name="lyra_left_panel_description">Erstellen Sie hier Ihr linkes Funktionsmodul</string>
+    
+    <!-- Lyra UI Right Panel -->
+    <string name="lyra_right_panel_title">Einstellungen</string>
+    <string name="lyra_right_panel_description">Passen Sie Ihre Lyra UI-Erfahrung an</string>
+    <string name="lyra_settings_effects_title">Visuelle Effekte</string>
+    <string name="lyra_settings_home_scale">Startseiten-Skalierung</string>
+    <string name="lyra_settings_home_scale_desc">Startseiten-Inhalt beim Öffnen des Panels skalieren</string>
+    <string name="lyra_settings_home_blur">Startseiten-Unschärfe</string>
+    <string name="lyra_settings_home_blur_desc">Startseiten-Hintergrund beim Öffnen des Panels verwischen</string>
+    
+    <!-- Lyra UI Bottom Panel -->
+    <string name="lyra_bottom_panel_title">Unteres Panel</string>
+    <string name="lyra_bottom_panel_description">Erstellen Sie hier Ihr unteres Funktionsmodul</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_placeholder">Willkommen bei Lyra UI</string>
+    <string name="onboarding_description_placeholder">Innovatives gestenbasiertes UI-Framework, das Ihre App flüssiger und natürlicher macht.</string>
+    <string name="onboarding_read_placeholder">Vereinbarung Lesen</string>
+    <string name="onboarding_agreed_placeholder">Ich habe gelesen und stimme zu</string>
+    <string name="onboarding_user_agreement_placeholder">Benutzervereinbarung</string>
+    <string name="onboarding_privacy_policy_placeholder">Datenschutzrichtlinie</string>
+    <string name="onboarding_and_placeholder">und</string>
+    <string name="onboarding_continue_placeholder">Beginnen</string>
+    
+    <!-- Permissions -->
+    <string name="onboarding_permission_music_title_placeholder">Medienberechtigung</string>
+    <string name="onboarding_permission_music_desc_placeholder">Auf Mediendateien auf Ihrem Gerät zugreifen.</string>
+    <string name="onboarding_permission_storage_title_placeholder">Speicherberechtigung</string>
+    <string name="onboarding_permission_storage_desc_placeholder">Gerätespeicher lesen und schreiben.</string>
+    <string name="onboarding_grant_music_placeholder">Medienberechtigung Erteilen</string>
+    <string name="onboarding_music_granted_placeholder">Medienberechtigung Erteilt</string>
+    <string name="onboarding_grant_files_placeholder">Speicherberechtigung Erteilen</string>
+    <string name="onboarding_files_granted_placeholder">Speicherberechtigung Erteilt</string>
+    <string name="permissions_rationale">Lyra UI benötigt die folgenden Berechtigungen für vollständige Funktionalität</string>
+    <string name="permission_music_status_granted">Medienberechtigung Erteilt</string>
+    <string name="permission_music_status_denied">Medienberechtigung Verweigert</string>
+    <string name="permission_storage_status_granted">Speicherberechtigung Erteilt</string>
+    <string name="permission_storage_status_denied">Speicherberechtigung Verweigert</string>
+    <string name="action_go_settings">Zu Einstellungen</string>
+    <string name="action_grant_now">Jetzt Erteilen</string>
+    <string name="action_retry">Wiederholen</string>
+</resources>
+

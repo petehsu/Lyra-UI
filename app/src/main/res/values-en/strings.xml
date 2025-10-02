@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Lyra UI</string>
+    
+    <!-- Lyra UI Center Content -->
+    <string name="lyra_center_title">Lyra UI</string>
+    <string name="lyra_center_description">Innovative gesture-based UI framework</string>
+    
+    <!-- Lyra UI Left Panel -->
+    <string name="lyra_left_panel_title">Left Panel</string>
+    <string name="lyra_left_panel_description">Build your left functional module here</string>
+    
+    <!-- Lyra UI Right Panel -->
+    <string name="lyra_right_panel_title">Settings</string>
+    <string name="lyra_right_panel_description">Customize your Lyra UI experience</string>
+    <string name="lyra_settings_effects_title">Visual Effects</string>
+    <string name="lyra_settings_home_scale">Home Scale</string>
+    <string name="lyra_settings_home_scale_desc">Scale home content when panel opens</string>
+    <string name="lyra_settings_home_blur">Home Blur</string>
+    <string name="lyra_settings_home_blur_desc">Blur home background when panel opens</string>
+    
+    <!-- Lyra UI Bottom Panel -->
+    <string name="lyra_bottom_panel_title">Bottom Panel</string>
+    <string name="lyra_bottom_panel_description">Build your bottom functional module here</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_placeholder">Welcome to Lyra UI</string>
+    <string name="onboarding_description_placeholder">Innovative gesture-based UI framework that makes your app more fluid and natural.</string>
+    <string name="onboarding_read_placeholder">Read Agreement</string>
+    <string name="onboarding_agreed_placeholder">I have read and agree to</string>
+    <string name="onboarding_user_agreement_placeholder">User Agreement</string>
+    <string name="onboarding_privacy_policy_placeholder">Privacy Policy</string>
+    <string name="onboarding_and_placeholder">and</string>
+    <string name="onboarding_continue_placeholder">Get Started</string>
+    
+    <!-- Permissions -->
+    <string name="onboarding_permission_music_title_placeholder">Media Permission</string>
+    <string name="onboarding_permission_music_desc_placeholder">Access media files on your device.</string>
+    <string name="onboarding_permission_storage_title_placeholder">Storage Permission</string>
+    <string name="onboarding_permission_storage_desc_placeholder">Read and write device storage.</string>
+    <string name="onboarding_grant_music_placeholder">Grant Media Permission</string>
+    <string name="onboarding_music_granted_placeholder">Media Permission Granted</string>
+    <string name="onboarding_grant_files_placeholder">Grant Storage Permission</string>
+    <string name="onboarding_files_granted_placeholder">Storage Permission Granted</string>
+    <string name="permissions_rationale">Lyra UI requires the following permissions for full functionality</string>
+    <string name="permission_music_status_granted">Media Permission Granted</string>
+    <string name="permission_music_status_denied">Media Permission Denied</string>
+    <string name="permission_storage_status_granted">Storage Permission Granted</string>
+    <string name="permission_storage_status_denied">Storage Permission Denied</string>
+    <string name="action_go_settings">Go to Settings</string>
+    <string name="action_grant_now">Grant Now</string>
+    <string name="action_retry">Retry</string>
+</resources>
+

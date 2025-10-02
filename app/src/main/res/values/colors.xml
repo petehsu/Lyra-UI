@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="deep_purple">#8E24AA</color>
+    <color name="accent_blue">#4A90E2</color>
+    <color name="accent_pink">#FF6DA6</color>
+    <color name="night_surface">#0F1116</color>
+    <color name="night_surface_variant">#1B1D22</color>
+    <color name="night_outline">#3C4049</color>
+    <color name="night_on_surface">#E6E9F0</color>
+    <color name="scrim_dark">#CC000000</color>
+    <color name="light_background">#F2F4FA</color>
+</resources>

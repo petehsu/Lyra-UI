@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Lyra UI</string>
+    
+    <!-- Lyra UI Center Content -->
+    <string name="lyra_center_title">Lyra UI</string>
+    <string name="lyra_center_description">إطار واجهة مستخدم مبتكر يعتمد على الإيماءات</string>
+    
+    <!-- Lyra UI Left Panel -->
+    <string name="lyra_left_panel_title">اللوحة اليسرى</string>
+    <string name="lyra_left_panel_description">قم ببناء وحدتك الوظيفية اليسرى هنا</string>
+    
+    <!-- Lyra UI Right Panel -->
+    <string name="lyra_right_panel_title">الإعدادات</string>
+    <string name="lyra_right_panel_description">قم بتخصيص تجربة Lyra UI الخاصة بك</string>
+    <string name="lyra_settings_effects_title">التأثيرات البصرية</string>
+    <string name="lyra_settings_home_scale">تحجيم الصفحة الرئيسية</string>
+    <string name="lyra_settings_home_scale_desc">تحجيم محتوى الصفحة الرئيسية عند فتح اللوحة</string>
+    <string name="lyra_settings_home_blur">تمويه الصفحة الرئيسية</string>
+    <string name="lyra_settings_home_blur_desc">تمويه خلفية الصفحة الرئيسية عند فتح اللوحة</string>
+    
+    <!-- Lyra UI Bottom Panel -->
+    <string name="lyra_bottom_panel_title">اللوحة السفلية</string>
+    <string name="lyra_bottom_panel_description">قم ببناء وحدتك الوظيفية السفلية هنا</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_placeholder">مرحباً بك في Lyra UI</string>
+    <string name="onboarding_description_placeholder">إطار واجهة مبتكر يعتمد على الإيماءات يجعل تطبيقك أكثر سلاسة وطبيعية.</string>
+    <string name="onboarding_read_placeholder">قراءة الاتفاقية</string>
+    <string name="onboarding_agreed_placeholder">لقد قرأت وأوافق على</string>
+    <string name="onboarding_user_agreement_placeholder">اتفاقية المستخدم</string>
+    <string name="onboarding_privacy_policy_placeholder">سياسة الخصوصية</string>
+    <string name="onboarding_and_placeholder">و</string>
+    <string name="onboarding_continue_placeholder">ابدأ</string>
+    
+    <!-- Permissions -->
+    <string name="onboarding_permission_music_title_placeholder">إذن الوسائط</string>
+    <string name="onboarding_permission_music_desc_placeholder">للوصول إلى ملفات الوسائط على جهازك.</string>
+    <string name="onboarding_permission_storage_title_placeholder">إذن التخزين</string>
+    <string name="onboarding_permission_storage_desc_placeholder">لقراءة وكتابة تخزين الجهاز.</string>
+    <string name="onboarding_grant_music_placeholder">منح إذن الوسائط</string>
+    <string name="onboarding_music_granted_placeholder">تم منح إذن الوسائط</string>
+    <string name="onboarding_grant_files_placeholder">منح إذن التخزين</string>
+    <string name="onboarding_files_granted_placeholder">تم منح إذن التخزين</string>
+    <string name="permissions_rationale">يتطلب Lyra UI الأذونات التالية للحصول على وظائف كاملة</string>
+    <string name="permission_music_status_granted">تم منح إذن الوسائط</string>
+    <string name="permission_music_status_denied">تم رفض إذن الوسائط</string>
+    <string name="permission_storage_status_granted">تم منح إذن التخزين</string>
+    <string name="permission_storage_status_denied">تم رفض إذن التخزين</string>
+    <string name="action_go_settings">الذهاب إلى الإعدادات</string>
+    <string name="action_grant_now">منح الآن</string>
+    <string name="action_retry">إعادة المحاولة</string>
+</resources>
+

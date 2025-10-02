@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Lyra UI</string>
+    
+    <!-- Lyra UI Center Content -->
+    <string name="lyra_center_title">Lyra UI</string>
+    <string name="lyra_center_description">創新的手勢交互界面框架</string>
+    
+    <!-- Lyra UI Left Panel -->
+    <string name="lyra_left_panel_title">左側面板</string>
+    <string name="lyra_left_panel_description">在此構建您的左側功能模塊</string>
+    
+    <!-- Lyra UI Right Panel -->
+    <string name="lyra_right_panel_title">設定</string>
+    <string name="lyra_right_panel_description">自訂您的 Lyra UI 體驗</string>
+    <string name="lyra_settings_effects_title">視覺效果</string>
+    <string name="lyra_settings_home_scale">首頁縮放</string>
+    <string name="lyra_settings_home_scale_desc">開啟面板時縮放首頁內容</string>
+    <string name="lyra_settings_home_blur">首頁模糊</string>
+    <string name="lyra_settings_home_blur_desc">開啟面板時模糊首頁背景</string>
+    
+    <!-- Lyra UI Bottom Panel -->
+    <string name="lyra_bottom_panel_title">底部面板</string>
+    <string name="lyra_bottom_panel_description">在此構建您的底部功能模塊</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_placeholder">歡迎使用 Lyra UI</string>
+    <string name="onboarding_description_placeholder">創新的手勢交互界面框架，讓您的應用更加流暢自然。</string>
+    <string name="onboarding_read_placeholder">閱讀協議</string>
+    <string name="onboarding_agreed_placeholder">我已閱讀並同意</string>
+    <string name="onboarding_user_agreement_placeholder">使用者協議</string>
+    <string name="onboarding_privacy_policy_placeholder">隱私政策</string>
+    <string name="onboarding_and_placeholder">和</string>
+    <string name="onboarding_continue_placeholder">開始體驗</string>
+    
+    <!-- Permissions -->
+    <string name="onboarding_permission_music_title_placeholder">媒體權限</string>
+    <string name="onboarding_permission_music_desc_placeholder">用於存取裝置上的媒體檔案。</string>
+    <string name="onboarding_permission_storage_title_placeholder">儲存權限</string>
+    <string name="onboarding_permission_storage_desc_placeholder">用於讀寫裝置儲存。</string>
+    <string name="onboarding_grant_music_placeholder">授予媒體權限</string>
+    <string name="onboarding_music_granted_placeholder">媒體權限已授予</string>
+    <string name="onboarding_grant_files_placeholder">授予儲存權限</string>
+    <string name="onboarding_files_granted_placeholder">儲存權限已授予</string>
+    <string name="permissions_rationale">Lyra UI 需要以下權限以提供完整功能</string>
+    <string name="permission_music_status_granted">媒體權限已授予</string>
+    <string name="permission_music_status_denied">媒體權限未授予</string>
+    <string name="permission_storage_status_granted">儲存權限已授予</string>
+    <string name="permission_storage_status_denied">儲存權限未授予</string>
+    <string name="action_go_settings">前往設定</string>
+    <string name="action_grant_now">立即授權</string>
+    <string name="action_retry">重新檢測</string>
+</resources>
+
