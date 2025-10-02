@@ -29,7 +29,11 @@ enum class ScreenType {
     TABLET_SMALL,        // 小平板 (7-10 inch)
     TABLET_LARGE,        // 大平板 (>10 inch)
     FOLDABLE_FOLDED,     // 折叠屏折叠状态
-    FOLDABLE_UNFOLDED    // 折叠屏展开状态
+    FOLDABLE_UNFOLDED,   // 折叠屏展开状态
+    ANDROID_TV,          // Android TV
+    WEAR_OS,             // Wear OS (智能手表)
+    AUTOMOTIVE,          // Android Automotive (车载)
+    AR_VR_HEADSET        // AR/VR 头显
 }
 
 /**
@@ -41,8 +45,21 @@ fun getScreenType(): ScreenType {
     val screenWidthDp = configuration.screenWidthDp
     val screenHeightDp = configuration.screenHeightDp
     val smallestWidthDp = minOf(screenWidthDp, screenHeightDp)
+    val largestWidthDp = maxOf(screenWidthDp, screenHeightDp)
     
     return when {
+        // Wear OS（智能手表，通常是小圆形或方形屏幕）
+        smallestWidthDp < 240 && largestWidthDp < 280 -> ScreenType.WEAR_OS
+        
+        // Android TV（大屏幕，10 foot UI）
+        smallestWidthDp >= 960 -> ScreenType.ANDROID_TV
+        
+        // Android Automotive（车载系统，宽屏）
+        screenWidthDp >= 1024 && screenHeightDp in 480..800 -> ScreenType.AUTOMOTIVE
+        
+        // AR/VR 头显（通常是超宽或特殊比例）
+        screenWidthDp >= 1280 && (screenWidthDp.toFloat() / screenHeightDp) > 1.8f -> ScreenType.AR_VR_HEADSET
+        
         // 折叠屏展开（宽度异常大或接近正方形）
         screenWidthDp >= 840 -> ScreenType.FOLDABLE_UNFOLDED
         
@@ -121,6 +138,42 @@ fun getScreenAdaptationConfig(screenType: ScreenType = getScreenType()): ScreenA
             minPanelWidthDp = 360.dp,
             cornerRadius = 40.dp,
             contentPadding = 32.dp
+        )
+        
+        ScreenType.ANDROID_TV -> ScreenAdaptationConfig(
+            panelWidthFraction = 0.3f,
+            panelHeightFraction = 0.65f,
+            maxPanelWidthDp = 640.dp,
+            minPanelWidthDp = 480.dp,
+            cornerRadius = 16.dp,
+            contentPadding = 48.dp
+        )
+        
+        ScreenType.WEAR_OS -> ScreenAdaptationConfig(
+            panelWidthFraction = 0.9f,
+            panelHeightFraction = 0.5f,
+            maxPanelWidthDp = 200.dp,
+            minPanelWidthDp = 160.dp,
+            cornerRadius = 24.dp,
+            contentPadding = 12.dp
+        )
+        
+        ScreenType.AUTOMOTIVE -> ScreenAdaptationConfig(
+            panelWidthFraction = 0.35f,
+            panelHeightFraction = 0.7f,
+            maxPanelWidthDp = 480.dp,
+            minPanelWidthDp = 360.dp,
+            cornerRadius = 8.dp,
+            contentPadding = 32.dp
+        )
+        
+        ScreenType.AR_VR_HEADSET -> ScreenAdaptationConfig(
+            panelWidthFraction = 0.35f,
+            panelHeightFraction = 0.6f,
+            maxPanelWidthDp = 600.dp,
+            minPanelWidthDp = 400.dp,
+            cornerRadius = 24.dp,
+            contentPadding = 40.dp
         )
     }
 }

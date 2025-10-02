@@ -33,6 +33,7 @@ import com.petehsu.lyraui.ui.home.panel.LyraPanelContainer
 import com.petehsu.lyraui.ui.home.panel.LyraPanelPosition
 import com.petehsu.lyraui.ui.home.panel.LyraRightPanelContent
 import com.petehsu.lyraui.ui.theme.ExtendedTheme
+import com.petehsu.lyraui.ui.util.LyraPredictiveBackHandler
 import com.petehsu.lyraui.ui.util.ScreenAdaptationConfig
 import com.petehsu.lyraui.ui.util.calculatePanelWidth
 import com.petehsu.lyraui.ui.util.getScreenAdaptationConfig
@@ -53,6 +54,8 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val screenWidthPx = with(density) { screenWidthDp.toPx() }
     val screenHeightPx = with(density) { screenHeightDp.toPx() }
     val panelWidthPx = with(density) { panelWidthDp.toPx() }
+
+    LyraPredictiveBackHandler(viewModel = viewModel)
 
     LyraPanelStateSynchronizer(
         viewModel = viewModel,
