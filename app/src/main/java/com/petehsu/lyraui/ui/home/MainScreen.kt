@@ -33,26 +33,40 @@ import com.petehsu.lyraui.ui.home.panel.LyraPanelContainer
 import com.petehsu.lyraui.ui.home.panel.LyraPanelPosition
 import com.petehsu.lyraui.ui.home.panel.LyraRightPanelContent
 import com.petehsu.lyraui.ui.theme.ExtendedTheme
+import com.petehsu.lyraui.ui.util.ScreenAdaptationConfig
+import com.petehsu.lyraui.ui.util.calculatePanelWidth
+import com.petehsu.lyraui.ui.util.getScreenAdaptationConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val density = LocalDensity.current
-    val screenWidthPx = with(density) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
-    val screenHeightPx = with(density) { LocalConfiguration.current.screenHeightDp.dp.toPx() }
-    val panelWidthPx = screenWidthPx * 0.7f
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenHeightDp = configuration.screenHeightDp.dp
+    
+    val adaptationConfig = getScreenAdaptationConfig()
+    val panelWidthDp = calculatePanelWidth(screenWidthDp, adaptationConfig)
+    val panelHeightFraction = adaptationConfig.panelHeightFraction
+    
+    val screenWidthPx = with(density) { screenWidthDp.toPx() }
+    val screenHeightPx = with(density) { screenHeightDp.toPx() }
+    val panelWidthPx = with(density) { panelWidthDp.toPx() }
 
     LyraPanelStateSynchronizer(
         viewModel = viewModel,
         panelWidthPx = panelWidthPx,
-        screenHeightPx = screenHeightPx
+        screenHeightPx = screenHeightPx,
+        panelHeightFraction = panelHeightFraction
     )
 
     LyraPanelLayout(
         viewModel = viewModel,
         panelWidthPx = panelWidthPx,
-        screenHeightPx = screenHeightPx
+        screenHeightPx = screenHeightPx,
+        panelHeightFraction = panelHeightFraction,
+        adaptationConfig = adaptationConfig
     )
 }
 
@@ -60,7 +74,8 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 private fun LyraPanelStateSynchronizer(
     viewModel: MainViewModel,
     panelWidthPx: Float,
-    screenHeightPx: Float
+    screenHeightPx: Float,
+    panelHeightFraction: Float
 ) {
     val state = viewModel.state
 
@@ -80,8 +95,8 @@ private fun LyraPanelStateSynchronizer(
         }
     }
 
-    LaunchedEffect(state.upDragOffset, screenHeightPx) {
-        val panelHeightPx = screenHeightPx * 0.4f
+    LaunchedEffect(state.upDragOffset, screenHeightPx, panelHeightFraction) {
+        val panelHeightPx = screenHeightPx * panelHeightFraction
         val progress = (state.upDragOffset / panelHeightPx).coerceIn(0f, 1f)
         viewModel.updateUpSlideProgress(progress)
         if (!viewModel.upProgressAnim.isRunning) {
@@ -93,6 +108,7 @@ private fun LyraPanelStateSynchronizer(
         viewModel = viewModel,
         panelWidthPx = panelWidthPx,
         screenHeightPx = screenHeightPx,
+        panelHeightFraction = panelHeightFraction,
         isDragging = state.isDragging
     )
 }
@@ -102,6 +118,7 @@ private fun LyraPanelAnimationSynchronizer(
     viewModel: MainViewModel,
     panelWidthPx: Float,
     screenHeightPx: Float,
+    panelHeightFraction: Float,
     isDragging: Boolean
 ) {
     LaunchedEffect(viewModel.rightProgressAnim, panelWidthPx, isDragging) {
@@ -124,12 +141,13 @@ private fun LyraPanelAnimationSynchronizer(
             }
     }
 
-    LaunchedEffect(viewModel.upProgressAnim, screenHeightPx, isDragging) {
+    LaunchedEffect(viewModel.upProgressAnim, screenHeightPx, panelHeightFraction, isDragging) {
         snapshotFlow { viewModel.upProgressAnim.value }
             .collect { value ->
                 if (!isDragging) {
+                    val panelHeightPx = screenHeightPx * panelHeightFraction
                     viewModel.updateUpSlideProgress(value)
-                    viewModel.updateUpDragOffset((value * screenHeightPx * 0.4f).coerceIn(0f, screenHeightPx * 0.4f))
+                    viewModel.updateUpDragOffset((value * panelHeightPx).coerceIn(0f, panelHeightPx))
                 }
             }
     }
@@ -139,7 +157,9 @@ private fun LyraPanelAnimationSynchronizer(
 private fun LyraPanelLayout(
     viewModel: MainViewModel,
     panelWidthPx: Float,
-    screenHeightPx: Float
+    screenHeightPx: Float,
+    panelHeightFraction: Float,
+    adaptationConfig: ScreenAdaptationConfig
 ) {
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
@@ -152,8 +172,8 @@ private fun LyraPanelLayout(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .lyraPanelTapGestures(viewModel, haptic, scope, panelWidthPx)
-            .lyraPanelDragGestures(viewModel, haptic, scope, panelWidthPx, screenHeightPx)
+            .lyraPanelTapGestures(viewModel, haptic, scope, panelWidthPx, panelHeightFraction)
+            .lyraPanelDragGestures(viewModel, haptic, scope, panelWidthPx, screenHeightPx, panelHeightFraction)
     ) {
         LyraCenterContent(scale = contentScale, blur = blurRadius)
         
@@ -161,7 +181,9 @@ private fun LyraPanelLayout(
             position = LyraPanelPosition.LEFT,
             progress = state.rightSlideProgress,
             backgroundColor = colors.lyraLeftPanelBackground,
-            modifier = Modifier.align(Alignment.CenterStart)
+            modifier = Modifier.align(Alignment.CenterStart),
+            cornerRadius = adaptationConfig.cornerRadius,
+            contentPadding = adaptationConfig.contentPadding
         ) {
             LyraLeftPanelContent()
         }
@@ -170,7 +192,9 @@ private fun LyraPanelLayout(
             position = LyraPanelPosition.RIGHT,
             progress = state.leftSlideProgress,
             backgroundColor = colors.lyraRightPanelBackground,
-            modifier = Modifier.align(Alignment.CenterEnd)
+            modifier = Modifier.align(Alignment.CenterEnd),
+            cornerRadius = adaptationConfig.cornerRadius,
+            contentPadding = adaptationConfig.contentPadding
         ) {
             LyraRightPanelContent()
         }
@@ -179,7 +203,10 @@ private fun LyraPanelLayout(
             position = LyraPanelPosition.BOTTOM,
             progress = state.upSlideProgress,
             backgroundColor = colors.lyraBottomPanelBackground,
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier.align(Alignment.BottomCenter),
+            cornerRadius = adaptationConfig.cornerRadius,
+            contentPadding = adaptationConfig.contentPadding,
+            heightFraction = panelHeightFraction
         ) {
             LyraBottomPanelContent()
         }
@@ -230,13 +257,14 @@ private fun Modifier.lyraPanelTapGestures(
     viewModel: MainViewModel,
     haptic: HapticFeedback,
     scope: CoroutineScope,
-    panelWidthPx: Float
+    panelWidthPx: Float,
+    panelHeightFraction: Float = 0.4f
 ): Modifier = this.pointerInput(Unit) {
     detectTapGestures(
         onTap = { offset ->
             val currentState = viewModel.state
             scope.launch {
-                handleTapToClose(viewModel, currentState, offset.x, offset.y, panelWidthPx, size.width.toFloat(), size.height.toFloat(), haptic)
+                handleTapToClose(viewModel, currentState, offset.x, offset.y, panelWidthPx, size.width.toFloat(), size.height.toFloat(), panelHeightFraction, haptic)
             }
         }
     )
@@ -250,6 +278,7 @@ private suspend fun handleTapToClose(
     panelWidthPx: Float,
     screenWidth: Float,
     screenHeight: Float,
+    panelHeightFraction: Float,
     haptic: HapticFeedback
 ) {
     if (state.showRightPanel && x > panelWidthPx) {
@@ -257,7 +286,7 @@ private suspend fun handleTapToClose(
     } else if (state.showLeftPanel && x < screenWidth - panelWidthPx) {
         viewModel.smoothCloseLeft { haptic.performHapticFeedback(HapticFeedbackType.LongPress) }
     } else if (state.showBottomPanel) {
-        val panelHeightPx = screenHeight * 0.4f
+        val panelHeightPx = screenHeight * panelHeightFraction
         if (y < screenHeight - panelHeightPx) {
             viewModel.smoothCloseBottom { haptic.performHapticFeedback(HapticFeedbackType.LongPress) }
         }
@@ -269,7 +298,8 @@ private fun Modifier.lyraPanelDragGestures(
     haptic: HapticFeedback,
     scope: CoroutineScope,
     panelWidthPx: Float,
-    screenHeightPx: Float
+    screenHeightPx: Float,
+    panelHeightFraction: Float
 ): Modifier = this.pointerInput(Unit) {
     val initialDragThreshold = 10f
 
@@ -280,11 +310,11 @@ private fun Modifier.lyraPanelDragGestures(
         },
         onDragEnd = {
             scope.launch {
-                handleDragEnd(viewModel, haptic, panelWidthPx, size.height.toFloat())
+                handleDragEnd(viewModel, haptic, panelWidthPx, size.height.toFloat(), panelHeightFraction)
             }
         }
     ) { _, dragAmount ->
-        handleDragGesture(viewModel, dragAmount, initialDragThreshold, panelWidthPx, size.height.toFloat())
+        handleDragGesture(viewModel, dragAmount, initialDragThreshold, panelWidthPx, size.height.toFloat(), panelHeightFraction)
     }
 }
 
@@ -292,7 +322,8 @@ private suspend fun handleDragEnd(
     viewModel: MainViewModel,
     haptic: HapticFeedback,
     panelWidthPx: Float,
-    screenHeight: Float
+    screenHeight: Float,
+    panelHeightFraction: Float
 ) {
     val currentState = viewModel.state
     viewModel.setIsDragging(false)
@@ -300,8 +331,8 @@ private suspend fun handleDragEnd(
     when (currentState.gestureDirection) {
         "right" -> LyraPanelGestureHandler.handleRightDragEnd(viewModel, currentState, panelWidthPx, haptic)
         "left" -> LyraPanelGestureHandler.handleLeftDragEnd(viewModel, currentState, panelWidthPx, haptic)
-        "up" -> LyraPanelGestureHandler.handleUpDragEnd(viewModel, currentState, screenHeight, haptic)
-        "down" -> LyraPanelGestureHandler.handleDownDragEnd(viewModel, currentState, screenHeight, haptic)
+        "up" -> LyraPanelGestureHandler.handleUpDragEnd(viewModel, currentState, screenHeight, panelHeightFraction, haptic)
+        "down" -> LyraPanelGestureHandler.handleDownDragEnd(viewModel, currentState, screenHeight, panelHeightFraction, haptic)
     }
 
     viewModel.setGestureDirection(null)
@@ -328,7 +359,8 @@ private fun handleDragGesture(
     dragAmount: androidx.compose.ui.geometry.Offset,
     threshold: Float,
     panelWidthPx: Float,
-    screenHeight: Float
+    screenHeight: Float,
+    panelHeightFraction: Float
 ) {
     val currentState = viewModel.state
 
@@ -337,7 +369,7 @@ private fun handleDragGesture(
     }
 
     if (currentState.gestureDirection != null) {
-        LyraPanelGestureHandler.handleDragGesture(viewModel, currentState, dragAmount, panelWidthPx, screenHeight)
+        LyraPanelGestureHandler.handleDragGesture(viewModel, currentState, dragAmount, panelWidthPx, screenHeight, panelHeightFraction)
     }
 }
 

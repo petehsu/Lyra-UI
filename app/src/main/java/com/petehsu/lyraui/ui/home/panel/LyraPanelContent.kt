@@ -46,9 +46,7 @@ import kotlin.math.roundToInt
 fun LyraLeftPanelContent(modifier: Modifier = Modifier) {
     val colors = ExtendedTheme.colorScheme
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
@@ -56,12 +54,16 @@ fun LyraLeftPanelContent(modifier: Modifier = Modifier) {
             text = stringResource(id = R.string.lyra_left_panel_title),
             color = colors.primaryText,
             fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            maxLines = 2,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
         Text(
             text = stringResource(id = R.string.lyra_left_panel_description),
             color = colors.secondaryText,
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            maxLines = 5,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
     }
 }
@@ -75,9 +77,7 @@ fun LyraRightPanelContent(
     val state = viewModel.state
     
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
@@ -85,12 +85,16 @@ fun LyraRightPanelContent(
             text = stringResource(id = R.string.lyra_right_panel_title),
             color = colors.primaryText,
             fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            maxLines = 2,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
         Text(
             text = stringResource(id = R.string.lyra_right_panel_description),
             color = colors.secondaryText,
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            maxLines = 3,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
         
         Spacer(modifier = Modifier.height(8.dp))
@@ -101,7 +105,9 @@ fun LyraRightPanelContent(
             text = stringResource(id = R.string.lyra_settings_effects_title),
             color = colors.primaryText,
             fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
         
         Spacer(modifier = Modifier.height(8.dp))
@@ -140,19 +146,23 @@ private fun LyraSettingSwitch(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).padding(end = 12.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
                 text = title,
                 color = colors.primaryText,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                maxLines = 2,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
             Text(
                 text = description,
                 color = colors.secondaryText,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                maxLines = 3,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
         
@@ -232,9 +242,7 @@ private fun LyraSwitch(
 fun LyraBottomPanelContent(modifier: Modifier = Modifier) {
     val colors = ExtendedTheme.colorScheme
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 28.dp),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -247,14 +255,18 @@ fun LyraBottomPanelContent(modifier: Modifier = Modifier) {
                 text = stringResource(id = R.string.lyra_bottom_panel_title),
                 color = colors.primaryText,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 2,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = stringResource(id = R.string.lyra_bottom_panel_description),
             color = colors.secondaryText,
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            maxLines = 3,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
         )
     }
 }

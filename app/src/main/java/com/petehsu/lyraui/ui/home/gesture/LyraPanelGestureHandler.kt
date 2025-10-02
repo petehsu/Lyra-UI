@@ -76,12 +76,13 @@ object LyraPanelGestureHandler {
         viewModel: MainViewModel,
         state: LyraPanelState,
         screenHeight: Float,
+        panelHeightFraction: Float,
         haptic: HapticFeedback
     ) {
         if (state.showBottomPanel) {
             viewModel.smoothOpenBottom()
         } else if (!state.showRightPanel && !state.showLeftPanel) {
-            val panelHeightPx = screenHeight * 0.4f
+            val panelHeightPx = screenHeight * panelHeightFraction
             val openThreshold = panelHeightPx * 0.25f
             if (state.upDragOffset > openThreshold) {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -97,10 +98,11 @@ object LyraPanelGestureHandler {
         viewModel: MainViewModel,
         state: LyraPanelState,
         screenHeight: Float,
+        panelHeightFraction: Float,
         haptic: HapticFeedback
     ) {
         if (state.showBottomPanel) {
-            val panelHeightPx = screenHeight * 0.4f
+            val panelHeightPx = screenHeight * panelHeightFraction
             val closeThreshold = panelHeightPx * 0.65f
             if (state.upDragOffset < closeThreshold) {
                 viewModel.smoothCloseBottom { haptic.performHapticFeedback(HapticFeedbackType.LongPress) }
@@ -115,13 +117,14 @@ object LyraPanelGestureHandler {
         state: LyraPanelState,
         dragAmount: Offset,
         panelWidthPx: Float,
-        screenHeight: Float
+        screenHeight: Float,
+        panelHeightFraction: Float
     ) {
         when (state.gestureDirection) {
             "right" -> handleRightDrag(viewModel, state, dragAmount, panelWidthPx)
             "left" -> handleLeftDrag(viewModel, state, dragAmount, panelWidthPx)
-            "up" -> handleUpDrag(viewModel, state, dragAmount, screenHeight)
-            "down" -> handleDownDrag(viewModel, state, dragAmount, screenHeight)
+            "up" -> handleUpDrag(viewModel, state, dragAmount, screenHeight, panelHeightFraction)
+            "down" -> handleDownDrag(viewModel, state, dragAmount, screenHeight, panelHeightFraction)
         }
     }
 
@@ -171,10 +174,11 @@ object LyraPanelGestureHandler {
         viewModel: MainViewModel,
         state: LyraPanelState,
         dragAmount: Offset,
-        screenHeight: Float
+        screenHeight: Float,
+        panelHeightFraction: Float
     ) {
         if (state.showBottomPanel || !state.showRightPanel && !state.showLeftPanel) {
-            val panelMax = screenHeight * 0.4f
+            val panelMax = screenHeight * panelHeightFraction
             val newOffset = (state.upDragOffset - dragAmount.y).coerceIn(0f, panelMax)
             viewModel.updateUpDragOffset(newOffset)
         }
@@ -184,10 +188,11 @@ object LyraPanelGestureHandler {
         viewModel: MainViewModel,
         state: LyraPanelState,
         dragAmount: Offset,
-        screenHeight: Float
+        screenHeight: Float,
+        panelHeightFraction: Float
     ) {
         if (state.showBottomPanel) {
-            val panelMax = screenHeight * 0.4f
+            val panelMax = screenHeight * panelHeightFraction
             val newOffset = (state.upDragOffset - dragAmount.y).coerceIn(0f, panelMax)
             viewModel.updateUpDragOffset(newOffset)
         }
